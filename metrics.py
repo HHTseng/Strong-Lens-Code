@@ -19,7 +19,8 @@ def aurocGraph(name, testX, testY, yPred, yProb):
 	plt.title(name + ' ROC curve')
 	plt.plot(fpr, tpr)
 	plt.show()
-	return auroc_val
+	numpy.save(name + '_ROC_curve.npy', [fpr, tpr, thresholds])
+	return [name, fpr, tpr, thresholds]
 
 def confusionMatrix(name, testX, testY, yPred, yProb):
 	matrix = numpy.asarray(metrics.confusion_matrix(testY, yPred,
