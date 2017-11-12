@@ -90,7 +90,7 @@ def test(trained_model, metrics_array, *argv):
 		del X, Y
 		print('\n==============================================\n')
 		results.append(dataset_result)
-	return results
+	return values
 
 def cross_validation(model_function, validX, validY, numFolds, num_epochs, 
 					metrics_array, print_summary = False):
