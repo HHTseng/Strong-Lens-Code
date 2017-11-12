@@ -77,17 +77,16 @@ def maxpool_convnet(input_shape=(101, 101, 4)):
 	model.add(Dense(1, activation='sigmoid'))
 	return model
 
-def compiledRegularizedConvnet(input_shape=(101, 101, 4)):
-	model = regularizedConvnet(input_shape)
+def compiledRegularizedConvnet(input_shape=(101, 101, 4), reg=0.3):
+	model = regularizedConvnet(input_shape, reg)
 	optimizer = Adam(lr = .0001, decay = 5e-5)
 	model.compile(optimizer=optimizer,
 	loss='binary_crossentropy',
 	metrics=['accuracy'])
-
 	return model
 
-reg = 0.3
-def regularizedConvnet(input_shape=(101, 101, 4)):
+# reg = 0.3
+def regularizedConvnet(input_shape=(101, 101, 4), reg=0.3):
 	model = Sequential()
 	model.add(Conv2D(64, (3, 3), strides=(2,2), activation='softplus',
 					input_shape=input_shape))
@@ -100,4 +99,5 @@ def regularizedConvnet(input_shape=(101, 101, 4)):
 	model.add(Dense(128, activation='softplus', kernel_regularizer=l2(reg)))
 	model.add(Dense(32, activation='softplus'))
 	model.add(Dense(1, activation='sigmoid'))
+	print('reg=', reg)
 	return model
